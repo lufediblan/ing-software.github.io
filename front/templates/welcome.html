@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido</title>
+</head>
+<body>
+    {% if student %}
+    <h1>Bienvenido estudiante: {{ student.name }} </h1>
+    <h2>Su email es {{ student.email }}</h2>
+    <h2>Usted está en el {{ student.semester }} semestre</h2>
+    {% endif %}
+
+    {% if mister %}
+    <h1>Bienvenido profesor: {{ mister.name }} </h1>
+    <h2>Su email es {{ mister.email }}</h2>
+    <h2>Usted está en el {{ mister.semester }} semestre</h2>
+    {% endif %}
+</body>
+</html>

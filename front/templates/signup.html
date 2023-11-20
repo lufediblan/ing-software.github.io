@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up SNI</title>
+    <style>
+        /* Estilos CSS */
+        * {
+            padding: 0px;
+            margin: 0px;
+            box-sizing: border-box;
+            color: white;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-repeat: no-repeat;
+            background-image: url("/static/img/fondo.jpg");
+            background-size: cover;
+        }
+
+        .container {
+            width: 400px;
+            background: #000000; /* Cambio en el color de fondo */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+        }
+
+        h2 {
+            text-align: center;
+            color: #ffff;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input,
+        .gender-label,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid #777;
+            border-radius: 4px;
+            color: #fff;
+            background-color: #444;
+        }
+
+        input[type="submit"] {
+            background-color: #004256;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #004256;
+        }
+
+        label {
+            margin-bottom: 8px;
+            color: #ffff;
+        }
+
+        .gender-label {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            margin: 8px 0;
+        }
+
+        .gender-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        #message {
+            color: #ff0000; /* Color rojo */
+            transition: color 0.5s ease; /* Transición de color con duración de 0.5 segundos */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Sign Up</h2>
+       
+        <div id="message" style="text-align: center; margin-top: 20px;">
+            {% if message %}
+            {{ message }}
+            {% endif %}
+        </div>
+        <script href="/static/js/scriptmessage.js">
+        </script>
+       <form action="/form_create" method="post">
+        <label for="email">Email:</label>
+        <input type="text" name="email" placeholder="Enter your email" required>
+
+        <label for="name">Name:</label>
+        <input type="text" name="name" placeholder="Enter your name" required>
+
+        <label for="lastname">Lastname:</label>
+        <input type="text" name="lastname" placeholder="Enter your lastname" required>
+
+        <label for="password">Password:</label>
+        <input type="password" name="password" placeholder="Enter your password" required>
+
+        <label for="password2">Password:</label>
+        <input type="password" name="password2" placeholder="Repeat your password" required>
+
+        <label for="rol">Rol:</label>
+        <select name="rol" id="rol-select" required onchange="showSemesters(this.value)">
+            <option value="">Select...</option>
+            <option value="Mister">Mister</option>
+            <option value="Student">Student</option>
+        </select>
+
+        <div id="semesters">
+            <label for="semester">Semestre:</label>
+            <select name="semester" required>
+                <option value="">Select...</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+        </div>
+
+        <input type="submit" value="Submit">
+    </form>
+    </div>
+
+    <script>
+        function togglePassword(inputId) {
+            var x = document.getElementById(inputId);
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+    </script>
+</body>
+</html>

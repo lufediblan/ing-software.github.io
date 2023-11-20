@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Visualizador de Notas de Estudios</title>
+    <link rel="stylesheet" href="tu_estilo.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Estilos personalizados */
+        .title {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .logout-btn {
+            float: right;
+            margin-right: 20px;
+        }
+        .menu-btn {
+            float: left;
+            margin-left: 20px;
+        }
+        .menu {
+            width: 200px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        .menu ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .menu li {
+            margin-bottom: 10px;
+        }
+        .menu .nav-item a {
+            font-weight: normal;
+        }
+        .menu .nav-item {
+            font-weight: bold;
+        }
+        .menu .agregar-notas {
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+    <div id="mis_cursos">
+        <div class="container">
+            <h1>Visualizador de Notas de Estudios</h1>
+            <form id="misterIdForm" action="/getcoursesstudent" method="post">
+                <label for="misterId">Ingresar ID del estudiante:</label>
+                <input type="text" id="misterId" name="id">
+                <button type="submit">Buscar Cursos</button>
+            </form>
+            <table class="table table-striped table-bordered mt-3">
+                <thead class="text-center font-weight-bold">
+                    <tr class="bg-secondary text-white">
+                        <td>Inscription ID</td>
+                        <td>Student Name</td>
+                        <td>Course Name</td>
+                        <td>Course Description</td>
+                        <td>Mister Name</td>
+                    </tr>
+                </thead>
+                <tbody id="addtabla">
+                    <!-- Aquí se mostrarán los cursos -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.querySelector("#misterIdForm");
+            form.addEventListener("submit", function(e) {
+                e.preventDefault();
+                const misterId = document.getElementById('misterId').value.trim();
+
+                fetch('/getcoursesstudent', {
+                    method: 'POST',
+                    body: new URLSearchParams({ id: misterId }),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('addtabla');
+                    tableBody.innerHTML = "";
+
+                    data.forEach(course => {
+                        const newRow = document.createElement('tr');
+
+                        const inscriptionIdCell = document.createElement('td');
+                        inscriptionIdCell.textContent = course.inscription_id;
+                        newRow.appendChild(inscriptionIdCell);
+
+                        const studentNameCell = document.createElement('td');
+                        studentNameCell.textContent = course.student_name;
+                        newRow.appendChild(studentNameCell);
+
+                        const courseNameCell = document.createElement('td');
+                        courseNameCell.textContent = course.course_name;
+                        newRow.appendChild(courseNameCell);
+
+                        const courseDescriptionCell = document.createElement('td');
+                        courseDescriptionCell.textContent = course.course_description;
+                        newRow.appendChild(courseDescriptionCell);
+
+                        const misterNameCell = document.createElement('td');
+                        misterNameCell.textContent = course.mister_name;
+                        newRow.appendChild(misterNameCell);
+
+                        tableBody.appendChild(newRow);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+    </script>
+    
+</body>
+</html>

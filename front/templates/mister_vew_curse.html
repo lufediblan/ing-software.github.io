@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis cursos</title>
+    <link rel="stylesheet" href="tu_estilo.css">
+    <!-- Agrega aquí tus enlaces a CSS y librerías -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Tus estilos personalizados van aquí */
+        .title {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .logout-btn {
+            float: right;
+            margin-right: 20px;
+        }
+        .menu-btn {
+            float: left;
+            margin-left: 20px;
+        }
+        .menu {
+            width: 200px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        .menu ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .menu li {
+            margin-bottom: 10px;
+        }
+        .menu .nav-item a {
+            font-weight: normal;
+        }
+        .menu .nav-item {
+            font-weight: bold;
+        }
+        .menu .agregar-notas {
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+    <div id="mis_cursos">
+        <div class="container">
+               <h1>Mis cursos</h1>
+               <form id="misterIdForm" action="/mistergetcourses" method="post">
+                <label for="misterId">Ingresar ID del Mister:</label>
+                <input type="text" id="misterId" name="id">
+                <button type="submit">Buscar</button>
+            </form>
+            <table class="table table-striped table-bordered mt-3">
+                <thead class="text-center font-weight-bold">
+                        <td>Nombre</td>
+                        <td>Descripción</td>
+                        <td>Semestre</td>
+                        <td>Profesor</td>
+                    </tr>
+                </thead>
+                <tbody id="addtabla">
+                    <!-- Aquí puedes agregar el código HTML para mostrar los cursos -->
+                </tbody>
+            </table>
+            {% if courses %}
+            {{ courses }}
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+       document.addEventListener("DOMContentLoaded", function() {
+    const form = document.querySelector("#misterIdForm");
+    form.addEventListener("submit", function(e) {
+        e.preventDefault();
+        const misterId = document.getElementById('misterId').value.trim();
+
+        fetch('/mistergetcourses', {
+            method: 'POST',
+            body: new URLSearchParams({ id: misterId }),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const tableBody = document.getElementById('addtabla');
+            tableBody.innerHTML = ""; // Limpiamos el contenido actual de la tabla
+
+            data.forEach(course => {
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${course.name}</td>
+                    <td>${course.description}</td>
+                    <td>${course.semester}</td>
+                    <td>${course.professor_name}</td>
+                `;
+                tableBody.appendChild(newRow); // Agregamos una fila por cada curso
+            });
+        })
+        .catch(error => console.error('Error:', error));
+    });
+});
+    </script>
+</body>
+</html>

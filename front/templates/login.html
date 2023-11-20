@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SNI - Login</title>
+    <link rel="stylesheet" href="/static/css/styleslogin.css">
+    
+</head>
+
+<body>
+    <div class="formulario">
+        <h1>Inicio de sesión</h1>
+        <div id="message" style="text-align: center; margin-top: 20px;">
+            {% if message %}
+            {{ message }}
+            {% endif %}
+        </div>
+        <script href="/static/js/scriptmessage.js">
+        </script>
+        <form action="/login" method="post">
+            <div class="username">
+                <label>Email</label>
+                <input type="text" required name="email">
+                <span></span>
+            </div>
+            <div class="username">
+                <label>Contraseña</label>
+                <input type="password" required name="password">
+                <span></span>
+            </div>
+
+            <input type="submit" value="Enviar">
+        </form>
+
+        <div class="registrarse">
+            <a href="/signupsni">¡Quiero registrarme!</a>
+        </div>
+    </div>
+</body>
+
+</html>

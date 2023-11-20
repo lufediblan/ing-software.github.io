@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <style>
+            .title {
+                text-align: center;
+                margin-top: 50px;
+            }
+            .logout-btn {
+                float: right;
+                margin-right: 20px;
+            }
+            .menu-btn {
+                float: left;
+                margin-left: 20px;
+            }
+            .menu {
+                width: 200px;
+                height: 100vh; /* Ajusta la altura del contenedor para que ocupe toda la altura de la pantalla */
+                position: fixed; /* Cambia la posición a fija */
+                top: 0;
+                left: 0; /* Ajusta la posición a la izquierda de la pantalla */
+            }
+
+            .menu ul {
+                list-style-type: none;
+                padding: 0;
+                display: flex;
+                flex-direction: column; /* Cambia la dirección de la flexión a columna */
+            }
+            .menu li {
+                margin-bottom: 10px;
+            }
+
+            .menu .nav-item a {
+    font-weight: normal; /* Restablecer la negrita */
+}
+
+.menu .nav-item {
+    font-weight: bold; /* Aplicar negrita al elemento li (nav-item) en lugar del enlace a */
+}
+
+/* Estilo específico para el enlace "Agregar notas" */
+.menu .agregar-notas {
+    font-weight: normal; /* Restablece la negrita solo para este enlace */
+}
+        </style>
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        </button>
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#" onclick="changeContent('Option 1')">Ver notas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" onclick="changeContent('Option 2')">Ver tareas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/student_courses" onclick="changeContent('Option 3')">Mis cursos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/student_inscription" onclick="changeContent('Option 4')">Inscripcion</a>
+            </li>
+            
+            </ul>
+        </div>
+        <button class="btn btn-primary logout-btn">Cerrar Sesión</button>
+        </nav>
+
+        <!-- Crear curso -->
+    
+
+        <!-- Mis cursos -->
+       
+        
+        <div id="ver_tareas" style="display: none;">
+          <div class="container">
+              <h1>Lista de Tareas</h1>
+              <div class="li-container">
+                  <ul id="taskList">
+                      <!-- Las tareas se cargarán aquí -->
+                  </ul>
+              </div>
+              <div class="empty">
+                  <p>No tienes tareas pendientes.</p>
+              </div>
+          </div>
+      </div>
+      
+      <script>
+          document.addEventListener("DOMContentLoaded", function() {
+              // Obtén las tareas del servidor o alguna fuente de datos y muestra las tareas
+              const tasks = obtenerTareasDesdeElServidor(); // Esta función es simulada, debes implementarla según tu entorno
+      
+              const ul = document.querySelector("#ver_tareas #taskList");
+              const empty = document.querySelector("#ver_tareas .empty");
+      
+              if (tasks.length > 0) {
+                  empty.style.display = "none";
+      
+                  tasks.forEach(function(task) {
+                      const li = document.createElement("li");
+                      const p = document.createElement("p");
+                      p.textContent = task.description; // Ajusta esto según tu estructura de datos
+      
+                      li.appendChild(p);
+                      ul.appendChild(li);
+                  });
+              } else {
+                  empty.style.display = "block";
+              }
+          });
+      </script>
+    
+        
+      
+      <script>
+          document.getElementById('gradeCalculator').addEventListener('submit', function(event) {
+              event.preventDefault();
+      
+              // Obtener los valores del formulario
+              const materia = document.getElementById('materiaSearch').value;
+              const nota1 = document.getElementById('grade1').value;
+              const nota2 = document.getElementById('grade2').value;
+              const nota3 = document.getElementById('grade3').value;
+              const promedio = ((parseFloat(nota1) + parseFloat(nota2) + parseFloat(nota3)) / 3).toFixed(2);
+      
+              // Crear una nueva fila en la tabla con los datos obtenidos
+              const table = document.getElementById('promedioNotas');
+              const newRow = table.insertRow(-1); // Insertar al final de la tabla
+      
+              // Insertar celdas con los datos obtenidos
+              const cell1 = newRow.insertCell(0);
+              const cell2 = newRow.insertCell(1);
+              const cell3 = newRow.insertCell(2);
+              const cell4 = newRow.insertCell(3);
+              const cell5 = newRow.insertCell(4);
+      
+              // Asignar valores a las celdas
+              cell1.innerHTML = materia;
+              cell2.innerHTML = nota1;
+              cell3.innerHTML = nota2;
+              cell4.innerHTML = nota3;
+              cell5.innerHTML = promedio;
+          });
+      </script>
+    
+         
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const input = document.querySelector("#ver_tareas input");
+                const form = document.querySelector("#ver_tareas #taskForm");
+                const ul = document.querySelector("#ver_tareas #taskList");
+                const empty = document.querySelector("#ver_tareas .empty");
+    
+                form.addEventListener("submit", function(e) {
+                    e.preventDefault();
+                    const text = input.value.trim();
+    
+                    if (text !== "") {
+                        const li = document.createElement("li");
+                        const p = document.createElement("p");
+                        p.textContent = text;
+    
+                        li.appendChild(p);
+                        li.appendChild(addDeleteBtn());
+                        ul.appendChild(li);
+    
+                        input.value = "";
+                        empty.style.display = "none";
+                    }
+                });
+    
+                function addDeleteBtn() {
+                    const deleteBtn = document.createElement("button");
+                    deleteBtn.textContent = "X";
+                    deleteBtn.className = "btn-delete";
+    
+                    deleteBtn.addEventListener("click", function(e) {
+                        const item = e.target.parentElement;
+                        ul.removeChild(item);
+    
+                        const items = ul.querySelectorAll("li");
+    
+                        if (items.length === 0) {
+                            empty.style.display = "block";
+                        }
+                    });
+    
+                    return deleteBtn;
+                }
+            });
+        </script>
+ 
+       
+        
+        <script>
+             function changeContent(option) {
+        document.getElementById('agregar_notas').style.display = 'none';
+        document.getElementById('mis_cursos').style.display = 'none';
+        document.getElementById('ver_tareas').style.display = 'none';
+        document.getElementById('inscription').style.display = 'none';
+
+
+        // Mostrar el contenido basado en la opción
+        if (option === 'Option 3') {
+            document.getElementById('mis_cursos').style.display = 'block';
+        } else if (option === 'Option 2') {
+            // Cambia 'agg_notas' por 'ver_tareas'
+            document.getElementById('ver_tareas').style.display = 'block';
+        } else if (option === 'Option 1') {
+            // Cambia 'ver_tareas' por 'agg_notas'
+            document.getElementById('agregar_notas').style.display = 'block';
+        }
+    }
+
+    function loadJQuery() {
+        var script = document.createElement('script');
+        script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js';
+        document.head.appendChild(script);
+    }
+        </script>
+        </body>
+        </html>

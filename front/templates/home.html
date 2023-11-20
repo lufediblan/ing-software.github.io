@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SNI</title>
+    <link rel="stylesheet" type="text/css" href="styleinicio.css" />
+    <style>
+      /* Estilos CSS */
+      * {
+        padding: 0px;
+        margin: 0px;
+        box-sizing: border-box;
+        color: white;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-repeat: no-repeat;
+        background-image: url("/static/img/fondo.jpg");
+        background-size: cover;
+      }
+      
+      .cont {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 3rem;
+      }
+      
+      .cont > article {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+        justify-content: space-around;
+      }
+      
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 60%;
+        height: 80vh;
+        background: #222; /* Cambio de color a gris oscuro */
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 10px;
+      }
+      
+      nav {
+        display: flex;
+        justify-content: space-between;
+        padding: 3rem 4rem 0 4rem;
+        align-items: center;
+      }
+      
+      nav > ul {
+        display: flex;
+        list-style: none;
+        justify-content: space-between;
+        gap: 75px;
+      }
+      
+      li > a {
+        text-decoration: none;
+        cursor: pointer;
+      }
+      
+      .image {
+        width: 40px;
+        height: 40px;
+      }
+      
+      .image img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
+      
+      button {
+        width: 10rem;
+        padding: 1rem;
+        color: black; /* Texto negro */
+        background-color: #00bcd4; /* Celeste */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <nav>
+        <ul>
+          <li><a href="#">Inicio</a></li>
+          <li><a href="/sloginsni">Iniciar sesión</a></li>
+          <li><a href="/signupsni">Registrarse</a></li>
+        </ul>
+        <section class="image">
+          <img src="/static/img/OIG.jpg" alt="Logo SNI" />
+        </section>
+      </nav>
+      <div class="cont">
+        <article>
+          <h1>Sistema de Notas e Inscripción</h1>
+          <p>
+            SNI es más que una plataforma educativa, es tu aliado en el mundo de
+            la ingeniería de sistemas. Diseñado para simplificar la gestión
+            académica y potenciar tu aprendizaje, SNI ofrece una experiencia
+            integral y dinámica para estudiantes y profesores. Gestiona tus
+            Notas de Manera Inteligente Con SNI, accede fácilmente a tus
+            calificaciones, promedios y evaluaciones. Visualiza tu progreso
+            académico de manera clara y detallada, manteniendo siempre el
+            control de tu rendimiento. Interactúa y Aprende en Comunidad
+            Participa en foros de discusión, comparte conocimientos y colabora
+            con compañeros y profesores. La comunidad SNI es un espacio de
+            aprendizaje colaborativo que enriquecerá tu experiencia académica.
+          </p>
+        </article>
+        <button>Únete ahora</button>
+      </div>
+    </div>
+  </body>
+</html>
